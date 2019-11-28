@@ -1,12 +1,15 @@
 Squeeze and Excitation Networks
 =====
 
+## Squeeze and Excitation (SE) Module
 <div align="center">
-  <img src="./figures/semodule.png" width="500">  
-  <p>The Squeeze and Excitation (SE) Module [1]</p>
+  <img src="./figures/semodule.png" width="350">  
+  <p>The Squeeze and Excitation (SE) Module [1].</p>
 </div>
 
-||Basic CNN|SENet (CNN + SE Module)|
+## Performance
+
+| |Basic CNN|SENet (CNN + SE Module)|
 |:---|---:|---:|
 |Accuracy|0.99340|0.99350|
 |Precision|0.99339|0.99344|
@@ -40,7 +43,7 @@ Class-9 | Precision: 0.99303, Recall: 0.98811, F1-Score: 0.99056
 Total | Accuracy: 0.99340, Precision: 0.99339, Recall: 0.99329, F1-Score: 0.99334
 ```
 
-### SENet (Basic CNN + Squeeze & Excitation Module)
+### SENet (Basic CNN + SE Module)
 ```
 Confusion Matrix
 [[ 977    0    0    0    0    0    1    1    1    0]

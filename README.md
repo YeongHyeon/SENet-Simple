@@ -10,7 +10,7 @@ Squeeze and Excitation Networks
 ## Performance
 
 | |Basic CNN|SENet (CNN + SE Module)|
-|:---|---:|---:|
+|:---|:---:|:---:|
 |Accuracy|0.99340|0.99350|
 |Precision|0.99339|0.99344|
 |Recall|0.99329|0.99342|

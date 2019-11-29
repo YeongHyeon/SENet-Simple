@@ -26,9 +26,10 @@ def training(sess, saver, neuralnet, dataset, epochs, batch_size, normalize=True
             _, summaries = sess.run([neuralnet.optimizer, neuralnet.summaries], \
                 feed_dict={neuralnet.x:x_tr, neuralnet.y:y_tr, neuralnet.batch_size:x_tr.shape[0]}, \
                 options=run_options, run_metadata=run_metadata)
-            loss, accuracy = sess.run([neuralnet.loss, neuralnet.accuracy], \
+            loss, accuracy, correct_pred = sess.run([neuralnet.loss, neuralnet.accuracy, neuralnet.correct_pred], \
                 feed_dict={neuralnet.x:x_tr, neuralnet.y:y_tr, neuralnet.batch_size:x_tr.shape[0]})
             summary_writer.add_summary(summaries, iteration)
+            print(correct_pred)
 
             iteration += 1
             if(terminator): break

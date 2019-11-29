@@ -1,10 +1,7 @@
-import os, inspect, time, math
+import os, inspect
 
 import tensorflow as tf
 import numpy as np
-import matplotlib.pyplot as plt
-
-from sklearn.decomposition import PCA
 
 PACK_PATH = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))+"/.."
 
@@ -14,7 +11,6 @@ def training(sess, saver, neuralnet, dataset, epochs, batch_size, normalize=True
 
     summary_writer = tf.compat.v1.summary.FileWriter(PACK_PATH+'/Checkpoint', sess.graph)
 
-    start_time = time.time()
     iteration = 0
 
     run_options = tf.compat.v1.RunOptions(trace_level=tf.compat.v1.RunOptions.FULL_TRACE)

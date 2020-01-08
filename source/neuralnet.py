@@ -38,45 +38,24 @@ class SENet(object):
         print("SE-1")
         conv1_1 = self.conv2d(input=input, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 1, 16], activation="relu", name="conv1_1")
-
-        glo_avg_pool1 = tf.compat.v1.reduce_sum(conv1_1, axis=(1, 2))
-        squeeze1 = self.fully_connected(input=glo_avg_pool1, num_inputs=16, \
-            num_outputs=8, activation="relu", name="squeeze1")
-        exitation1 = tf.reshape(self.fully_connected(input=squeeze1, num_inputs=8, \
-            num_outputs=16, activation="sigmoid", name="exitation1"), [-1, 1, 1, 16])
-        exitated1 = tf.multiply(conv1_1, exitation1)
-
-        conv1_2 = self.conv2d(input=exitated1, stride=1, padding='SAME', \
+        se1 = self.squeeze_n_exitation(input=conv1_1, num_inputs=16, name="se1")
+        conv1_2 = self.conv2d(input=se1, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 16, 16], activation="relu", name="conv1_2")
         max_pool1 = self.maxpool(input=conv1_2, ksize=2, strides=2, padding='SAME', name="max_pool1")
 
         print("SE-2")
         conv2_1 = self.conv2d(input=max_pool1, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 16, 32], activation="relu", name="conv2_1")
-
-        glo_avg_pool2 = tf.compat.v1.reduce_sum(conv2_1, axis=(1, 2))
-        squeeze2 = self.fully_connected(input=glo_avg_pool2, num_inputs=32, \
-            num_outputs=16, activation="relu", name="squeeze2")
-        exitation2 = tf.reshape(self.fully_connected(input=squeeze2, num_inputs=16, \
-            num_outputs=32, activation="sigmoid", name="exitation2"), [-1, 1, 1, 32])
-        exitated2 = tf.multiply(conv2_1, exitation2)
-
-        conv2_2 = self.conv2d(input=exitated2, stride=1, padding='SAME', \
+        se2 = self.squeeze_n_exitation(input=conv2_1, num_inputs=32, name="se2")
+        conv2_2 = self.conv2d(input=se2, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 32, 32], activation="relu", name="conv2_2")
         max_pool2 = self.maxpool(input=conv2_2, ksize=2, strides=2, padding='SAME', name="max_pool2")
 
         print("SE-3")
         conv3_1 = self.conv2d(input=max_pool2, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 32, 64], activation="relu", name="conv3_1")
-
-        glo_avg_pool3 = tf.compat.v1.reduce_sum(conv3_1, axis=(1, 2))
-        squeeze3 = self.fully_connected(input=glo_avg_pool3, num_inputs=64, \
-            num_outputs=32, activation="relu", name="squeeze3")
-        exitation3 = tf.reshape(self.fully_connected(input=squeeze3, num_inputs=32, \
-            num_outputs=64, activation="sigmoid", name="exitation3"), [-1, 1, 1, 64])
-        exitated3 = tf.multiply(conv3_1, exitation3)
-
-        conv3_2 = self.conv2d(input=exitated3, stride=1, padding='SAME', \
+        se3 = self.squeeze_n_exitation(input=conv3_1, num_inputs=64, name="se3")
+        conv3_2 = self.conv2d(input=se3, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 64, 64], activation="relu", name="conv3_2")
 
         print("FullCon")
@@ -130,6 +109,17 @@ class SENet(object):
             variable = var_bank[var_idx]
 
         return var_bank, name_bank, variable
+
+    def squeeze_n_exitation(self, input, num_inputs, name=""):
+
+        squeeze = tf.compat.v1.reduce_sum(input, axis=(1, 2))
+        exitation_in = self.fully_connected(input=squeeze, num_inputs=num_inputs, \
+            num_outputs=int(num_inputs/2), activation="relu", name="sq_%s" %(name))
+        exitation_out = tf.reshape(self.fully_connected(input=exitation_in, num_inputs=int(num_inputs/2), \
+            num_outputs=num_inputs, activation="sigmoid", name="ex_%s" %(name)), [-1, 1, 1, num_inputs])
+        exitated = tf.multiply(input, exitation_out)
+
+        return exitated
 
     def conv2d(self, input, stride, padding, \
         filter_size=[3, 3, 16, 32], dilations=[1, 1, 1, 1], activation="relu", name=""):

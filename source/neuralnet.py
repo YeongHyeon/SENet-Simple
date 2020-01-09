@@ -38,29 +38,29 @@ class SENet(object):
         print("SE-1")
         conv1_1 = self.conv2d(input=input, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 1, 16], activation="relu", name="conv1_1")
-        se1 = self.squeeze_n_exitation(input=conv1_1, num_inputs=16, name="se1")
-        conv1_2 = self.conv2d(input=se1, stride=1, padding='SAME', \
+        conv1_2 = self.conv2d(input=conv1_1, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 16, 16], activation="relu", name="conv1_2")
-        max_pool1 = self.maxpool(input=conv1_2, ksize=2, strides=2, padding='SAME', name="max_pool1")
+        se1 = self.squeeze_n_exitation(input=conv1_2, num_inputs=16, name="se1")
+        max_pool1 = self.maxpool(input=se1, ksize=2, strides=2, padding='SAME', name="max_pool1")
 
         print("SE-2")
         conv2_1 = self.conv2d(input=max_pool1, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 16, 32], activation="relu", name="conv2_1")
-        se2 = self.squeeze_n_exitation(input=conv2_1, num_inputs=32, name="se2")
-        conv2_2 = self.conv2d(input=se2, stride=1, padding='SAME', \
+        conv2_2 = self.conv2d(input=conv2_1, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 32, 32], activation="relu", name="conv2_2")
-        max_pool2 = self.maxpool(input=conv2_2, ksize=2, strides=2, padding='SAME', name="max_pool2")
+        se2 = self.squeeze_n_exitation(input=conv2_2, num_inputs=32, name="se2")
+        max_pool2 = self.maxpool(input=se2, ksize=2, strides=2, padding='SAME', name="max_pool2")
 
         print("SE-3")
         conv3_1 = self.conv2d(input=max_pool2, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 32, 64], activation="relu", name="conv3_1")
-        se3 = self.squeeze_n_exitation(input=conv3_1, num_inputs=64, name="se3")
-        conv3_2 = self.conv2d(input=se3, stride=1, padding='SAME', \
+        conv3_2 = self.conv2d(input=conv3_1, stride=1, padding='SAME', \
             filter_size=[self.k_size, self.k_size, 64, 64], activation="relu", name="conv3_2")
+        se3 = self.squeeze_n_exitation(input=conv3_2, num_inputs=64, name="se3")
 
         print("FullCon")
-        [n, h, w, c] = conv3_2.shape
-        fullcon_in = tf.compat.v1.reshape(conv3_2, shape=[self.batch_size, h*w*c], name="fullcon_in")
+        [n, h, w, c] = se3.shape
+        fullcon_in = tf.compat.v1.reshape(se3, shape=[self.batch_size, h*w*c], name="fullcon_in")
         fullcon1 = self.fully_connected(input=fullcon_in, num_inputs=int(h*w*c), \
             num_outputs=512, activation="relu", name="fullcon1")
         fullcon2 = self.fully_connected(input=fullcon1, num_inputs=512, \

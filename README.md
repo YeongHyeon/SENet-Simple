@@ -46,28 +46,28 @@ Total | Accuracy: 0.99340, Precision: 0.99339, Recall: 0.99329, F1-Score: 0.9933
 ### SENet (Basic CNN + SE Module)
 ```
 Confusion Matrix
-[[ 977    0    0    0    0    0    1    1    1    0]
- [   0 1131    1    0    0    0    1    0    1    1]
- [   2    0 1027    0    0    0    0    3    0    0]
- [   0    0    0 1008    0    1    0    0    1    0]
- [   0    0    0    0  973    0    5    0    0    4]
- [   1    0    0    5    0  883    3    0    0    0]
- [   1    1    0    0    1    2  952    0    1    0]
- [   0    2    3    1    0    0    0 1020    1    1]
- [   2    0    1    1    0    0    0    1  966    3]
- [   0    0    1    1    4    3    0    1    1  998]]
-Class-0 | Precision: 0.99390, Recall: 0.99694, F1-Score: 0.99542
-Class-1 | Precision: 0.99735, Recall: 0.99648, F1-Score: 0.99691
-Class-2 | Precision: 0.99419, Recall: 0.99516, F1-Score: 0.99467
-Class-3 | Precision: 0.99213, Recall: 0.99802, F1-Score: 0.99506
-Class-4 | Precision: 0.99489, Recall: 0.99084, F1-Score: 0.99286
-Class-5 | Precision: 0.99325, Recall: 0.98991, F1-Score: 0.99158
-Class-6 | Precision: 0.98960, Recall: 0.99374, F1-Score: 0.99167
-Class-7 | Precision: 0.99415, Recall: 0.99222, F1-Score: 0.99318
-Class-8 | Precision: 0.99383, Recall: 0.99179, F1-Score: 0.99281
-Class-9 | Precision: 0.99106, Recall: 0.98910, F1-Score: 0.99008
+[[ 978    1    0    0    0    0    0    1    0    0]
+ [   0 1134    1    0    0    0    0    0    0    0]
+ [   1    1 1024    0    0    0    0    5    0    1]
+ [   0    0    0 1005    0    2    0    1    2    0]
+ [   0    0    2    0  976    0    2    0    0    2]
+ [   1    0    0    4    0  885    1    0    0    1]
+ [   3    2    0    0    2    1  949    0    1    0]
+ [   0    3    4    0    0    0    0 1020    0    1]
+ [   2    0    1    0    1    1    0    0  966    3]
+ [   0    0    0    0    4    2    0    3    0 1000]]
+Class-0 | Precision: 0.99289, Recall: 0.99796, F1-Score: 0.99542
+Class-1 | Precision: 0.99387, Recall: 0.99912, F1-Score: 0.99649
+Class-2 | Precision: 0.99225, Recall: 0.99225, F1-Score: 0.99225
+Class-3 | Precision: 0.99604, Recall: 0.99505, F1-Score: 0.99554
+Class-4 | Precision: 0.99288, Recall: 0.99389, F1-Score: 0.99338
+Class-5 | Precision: 0.99327, Recall: 0.99215, F1-Score: 0.99271
+Class-6 | Precision: 0.99685, Recall: 0.99061, F1-Score: 0.99372
+Class-7 | Precision: 0.99029, Recall: 0.99222, F1-Score: 0.99125
+Class-8 | Precision: 0.99690, Recall: 0.99179, F1-Score: 0.99434
+Class-9 | Precision: 0.99206, Recall: 0.99108, F1-Score: 0.99157
 
-Total | Accuracy: 0.99350, Precision: 0.99344, Recall: 0.99342, F1-Score: 0.99342
+Total | Accuracy: 0.99370, Precision: 0.99373, Recall: 0.99361, F1-Score: 0.99367
 ```
 
 ## Reference

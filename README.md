@@ -70,5 +70,11 @@ Class-9 | Precision: 0.99206, Recall: 0.99108, F1-Score: 0.99157
 Total | Accuracy: 0.99370, Precision: 0.99373, Recall: 0.99361, F1-Score: 0.99367
 ```
 
+## Requirements
+* Python 3.6.8  
+* Tensorflow 1.14.0  
+* Numpy 1.17.1  
+* Matplotlib 3.1.1  
+
 ## Reference
 [1] Hu, Jie, et al. (2018). <a href="https://arxiv.org/abs/1709.01507">Squeeze-and-excitation networks.</a> Proceedings of the IEEE conference on computer vision and pattern recognition. 2018.
